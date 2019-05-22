@@ -1,0 +1,74 @@
+---
+title: "Ajustando datos de producción de leche usando R"
+author: "Adrián González"
+date: "21 de Mayo de 2019"
+output: pdf_document
+citation_package: biblatex
+bibliography: refs.bib
+csl: style.csl
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+
+```{r }
+lactancia=read.table("DPP_PROD_CC.txt", header=T, dec=",", sep="")
+```
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r }
+summary(lactancia)
+```
+
+
+
+```{r echo=TRUE, tidy=TRUE}
+plot(lactancia$DPP,lactancia$PROD,xlab='Días postparto',ylab='Producción de leche (k)', 
+     main='Dispersión Datos de Lactancia')
+```
+
+
+```{r echo=TRUE}
+library("nlstools")
+```
+
+## Ajuste de producción de leche al modelo de Wood
+
+aaaaaaa $y=at^{b}e^{-ct}$ aaaaaaa
+
+```{r }
+reglac <- nls(PROD ~ a * DPP^b*exp(-c*DPP), data = lactancia, 
+              start = list(a=7, b=0.21, c=0.01), 
+              control = list(maxiter=200, warnOnly=TRUE))
+```
+
+
+
+```{r }
+overview(reglac)
+```
+
+
+## Graficando la línea de regresión sobre la nube de puntos
+
+```{r echo=TRUE}
+plotfit(reglac, smooth = TRUE,xlab='Días postparto',ylab='Producción de leche (k)',
+        main='Ajuste modelo de Wood')
+
+```
+
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
