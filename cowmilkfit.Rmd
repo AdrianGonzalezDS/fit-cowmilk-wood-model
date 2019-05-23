@@ -4,15 +4,16 @@ producción de leche"
 author: "Adrián González"
 date: "21 de Mayo de 2019"
 output: pdf_document
-citation_package: perl
+citation_package: natbib
 bibliography: lecheBiblio.bib
-link-citations: yes
+#link-citations: yes
 #usepackage: perl
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
 
 ## R Markdown
 
@@ -44,10 +45,10 @@ library("nlstools")
 
 ## Ajuste de producción de leche al modelo de Wood
 
-La ecuación que describe el modelo de Woood \cite{Wood1967} es la siguiente:
+La ecuación que describe el modelo de Wood [@Wood1967] es la siguiente:
 
 $$y=at^{b}e^{-ct}$$ 
-
+<!-- \cite{Wood1967} -->
 
 
 ```{r }
