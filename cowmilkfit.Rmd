@@ -1,11 +1,13 @@
 ---
-title: "Ajustando datos de producción de leche usando R"
+title: "Uso del paquete estadístico R para ajustar datos de 
+producción de leche"
 author: "Adrián González"
 date: "21 de Mayo de 2019"
 output: pdf_document
-citation_package: biblatex
-bibliography: refs.bib
-csl: style.csl
+citation_package: perl
+bibliography: lecheBiblio.bib
+link-citations: yes
+#usepackage: perl
 ---
 
 ```{r setup, include=FALSE}
@@ -30,7 +32,8 @@ summary(lactancia)
 
 
 ```{r echo=TRUE, tidy=TRUE}
-plot(lactancia$DPP,lactancia$PROD,xlab='Días postparto',ylab='Producción de leche (k)', 
+plot(lactancia$DPP,lactancia$PROD,xlab='Días postparto',
+     ylab='Producción de leche (k)', 
      main='Dispersión Datos de Lactancia')
 ```
 
@@ -41,7 +44,11 @@ library("nlstools")
 
 ## Ajuste de producción de leche al modelo de Wood
 
-aaaaaaa $y=at^{b}e^{-ct}$ aaaaaaa
+La ecuación que describe el modelo de Woood \cite{Wood1967} es la siguiente:
+
+$$y=at^{b}e^{-ct}$$ 
+
+
 
 ```{r }
 reglac <- nls(PROD ~ a * DPP^b*exp(-c*DPP), data = lactancia, 
@@ -71,4 +78,5 @@ You can also embed plots, for example:
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot
+
