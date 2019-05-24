@@ -4,10 +4,14 @@ producción de leche"
 author: "Adrián González"
 date: "21 de Mayo de 2019"
 output: pdf_document
+in_header: preamble.tex
+latex_engine: xelatex
 citation_package: natbib
-bibliography: lecheBiblio.bib
+keep_tex: yes
+bibliography: list.bib
+script:
+  - perl apply_references.pl list.bib input.md.ref output.md
 #link-citations: yes
-#usepackage: perl
 ---
 
 ```{r setup, include=FALSE}
@@ -45,10 +49,10 @@ library("nlstools")
 
 ## Ajuste de producción de leche al modelo de Wood
 
-La ecuación que describe el modelo de Wood [@Wood1967] es la siguiente:
+La ecuación que describe el modelo de Wood \cite{Wood1967} es la siguiente:
 
 $$y=at^{b}e^{-ct}$$ 
-<!-- \cite{Wood1967} -->
+
 
 
 ```{r }
